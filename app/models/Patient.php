@@ -25,6 +25,6 @@ class Patient {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    // Add more methods as needed (update, delete, etc.)
+    
 }
 
