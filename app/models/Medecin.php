@@ -31,6 +31,6 @@ class Medecin {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // Add more methods as needed (update, delete, etc.)
+    
 }
 
