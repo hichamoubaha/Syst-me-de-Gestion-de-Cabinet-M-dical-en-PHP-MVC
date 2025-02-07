@@ -15,7 +15,7 @@ class Router {
             $controllerInstance = new $controller();
             $controllerInstance->$method();
         } else {
-            // Handle 404 Not Found
+            
             header("HTTP/1.0 404 Not Found");
             echo "404 Not Found";
         }
