@@ -26,7 +26,7 @@ class RendezVousController {
                 header('Location: /rendez-vous');
                 exit;
             } else {
-                
+                // Show error message
                 $error = "Failed to create rendez-vous";
             }
         }

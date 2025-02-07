@@ -5,6 +5,16 @@
     <div class="md:flex">
         <div class="p-8">
             <div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">Login</div>
+            <?php if (isset($_GET['registered']) && $_GET['registered'] == 1): ?>
+                <div class="mt-4 p-2 bg-green-100 text-green-700 rounded">
+                    Registration successful. Please log in.
+                </div>
+            <?php endif; ?>
+            <?php if (isset($error)): ?>
+                <div class="mt-4 p-2 bg-red-100 text-red-700 rounded">
+                    <?php echo $error; ?>
+                </div>
+            <?php endif; ?>
             <form class="mt-6" action="/login" method="POST">
                 <div>
                     <label class="block text-gray-700">Email</label>

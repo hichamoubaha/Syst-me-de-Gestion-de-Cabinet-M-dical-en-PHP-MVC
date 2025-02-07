@@ -21,30 +21,33 @@ class UserController {
                 'role' => $_POST['role']
             ];
 
-            $userId = $this->userModel->create($data);
+            try {
+                $userId = $this->userModel->create($data);
 
-            if ($userId) {
-                if ($data['role'] === 'patient') {
-                    $patientData = [
-                        'user_id' => $userId,
-                        'date_naissance' => $_POST['date_naissance'],
-                        'telephone' => $_POST['telephone']
-                    ];
-                    $this->patientModel->create($patientData);
-                } elseif ($data['role'] === 'medecin') {
-                    $medecinData = [
-                        'user_id' => $userId,
-                        'specialite' => $_POST['specialite']
-                    ];
-                    $this->medecinModel->create($medecinData);
+                if ($userId) {
+                    if ($data['role'] === 'patient') {
+                        $patientData = [
+                            'user_id' => $userId,
+                            'date_naissance' => $_POST['date_naissance'],
+                            'telephone' => $_POST['telephone']
+                        ];
+                        $this->patientModel->create($patientData);
+                    } elseif ($data['role'] === 'medecin') {
+                        $medecinData = [
+                            'user_id' => $userId,
+                            'specialite' => $_POST['specialite']
+                        ];
+                        $this->medecinModel->create($medecinData);
+                    }
+
+                    // Redirect to login page with success message
+                    header('Location: /login?registered=1');
+                    exit;
+                } else {
+                    throw new Exception("Failed to create user");
                 }
-
-                // Redirect to login page or show success message
-                header('Location: /login');
-                exit;
-            } else {
-                
-                $error = "Registration failed";
+            } catch (Exception $e) {
+                $error = "Registration failed: " . $e->getMessage();
             }
         }
 
@@ -65,8 +68,14 @@ class UserController {
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['user_role'] = $user['role'];
 
-                // Redirect to dashboard
-                header('Location: /dashboard');
+                // Redirect to appropriate dashboard
+                if ($user['role'] === 'patient') {
+                    header('Location: /patient/dashboard');
+                } elseif ($user['role'] === 'medecin') {
+                    header('Location: /medecin/dashboard');
+                } else {
+                    header('Location: /admin/dashboard');
+                }
                 exit;
             } else {
                 $error = "Invalid email or password";
@@ -80,7 +89,7 @@ class UserController {
     public function logout() {
         session_start();
         session_destroy();
-        header('Location: /');
+        header('Location: /login');
         exit;
     }
 }

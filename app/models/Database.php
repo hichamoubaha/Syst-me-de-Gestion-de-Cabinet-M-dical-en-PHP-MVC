@@ -11,8 +11,9 @@ class Database {
         $pass = "your_password";
 
         try {
-            $this->conn = new PDO("pgsql:host=$host;dbname=$db", $user, $pass);
+            $this->conn = new PDO("mysql:host=$host;dbname=$db;charset=utf8mb4", $user, $pass);
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
         } catch(PDOException $e) {
             echo "Connection failed: " . $e->getMessage();
         }

@@ -10,11 +10,16 @@ class Patient {
     public function create($data) {
         $query = "INSERT INTO patients (user_id, date_naissance, telephone) VALUES (:user_id, :date_naissance, :telephone)";
         $stmt = $this->db->prepare($query);
-        $stmt->execute([
+        $result = $stmt->execute([
             ':user_id' => $data['user_id'],
             ':date_naissance' => $data['date_naissance'],
             ':telephone' => $data['telephone']
         ]);
+
+        if (!$result) {
+            throw new Exception("Failed to insert patient into database");
+        }
+
         return $this->db->lastInsertId();
     }
 
@@ -24,7 +29,5 @@ class Patient {
         $stmt->execute([':user_id' => $userId]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
-
-    
 }
 

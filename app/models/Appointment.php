@@ -26,6 +26,6 @@ class Appointment {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    
+    // Add more methods as needed (update, delete, get by doctor, etc.)
 }
 

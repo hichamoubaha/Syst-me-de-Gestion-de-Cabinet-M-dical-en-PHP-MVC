@@ -10,13 +10,18 @@ class User {
     public function create($data) {
         $query = "INSERT INTO users (first_name, last_name, email, password, role) VALUES (:first_name, :last_name, :email, :password, :role)";
         $stmt = $this->db->prepare($query);
-        $stmt->execute([
+        $result = $stmt->execute([
             ':first_name' => $data['first_name'],
             ':last_name' => $data['last_name'],
             ':email' => $data['email'],
             ':password' => password_hash($data['password'], PASSWORD_DEFAULT),
             ':role' => $data['role']
         ]);
+
+        if (!$result) {
+            throw new Exception("Failed to insert user into database");
+        }
+
         return $this->db->lastInsertId();
     }
 
@@ -33,7 +38,5 @@ class User {
         $stmt->execute([':id' => $id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
-
-    
 }
 

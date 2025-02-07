@@ -22,8 +22,11 @@ $router->addRoute('/', 'UserController', 'login');
 $router->addRoute('/register', 'UserController', 'register');
 $router->addRoute('/login', 'UserController', 'login');
 $router->addRoute('/logout', 'UserController', 'logout');
-$router->addRoute('/rendez-vous', 'RendezVousController', 'list');
+$router->addRoute('/patient/dashboard', 'PatientController', 'dashboard');
+$router->addRoute('/medecin/dashboard', 'MedecinController', 'dashboard');
 $router->addRoute('/rendez-vous/create', 'RendezVousController', 'create');
+$router->addRoute('/rendez-vous/confirm/{id}', 'RendezVousController', 'confirm');
+$router->addRoute('/rendez-vous/cancel/{id}', 'RendezVousController', 'cancel');
 
 // Get current URL
 $url = $_SERVER['REQUEST_URI'];
