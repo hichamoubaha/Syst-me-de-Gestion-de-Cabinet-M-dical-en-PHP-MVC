@@ -43,7 +43,7 @@ class UserController {
                 header('Location: /login');
                 exit;
             } else {
-                // Show error message
+                
                 $error = "Registration failed";
             }
         }
