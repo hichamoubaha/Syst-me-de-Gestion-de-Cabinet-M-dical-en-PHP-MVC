@@ -7,8 +7,8 @@ class Database {
     private function __construct() {
         $host = "localhost";
         $db = "medical_cabinet";
-        $user = "your_username";
-        $pass = "your_password";
+        $user = "postgres";
+        $pass = "rcad3210";
 
         try {
             $this->conn = new PDO("mysql:host=$host;dbname=$db;charset=utf8mb4", $user, $pass);
