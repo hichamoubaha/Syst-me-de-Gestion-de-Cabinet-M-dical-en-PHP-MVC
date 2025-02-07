@@ -36,6 +36,6 @@ class RendezVous {
         return $stmt->execute([':id' => $id, ':statut' => $status]);
     }
 
-    // Add more methods as needed (update, delete, get by doctor, etc.)
+    
 }
 
